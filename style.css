@@ -1,0 +1,255 @@
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  background-image: url("./images/main_frame.jpg");
+}
+
+
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.players {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.players__item {
+  max-width: 180px;
+  font-size: 16px;
+  background: #b4b4b4;
+  padding: 16px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.players :not(li:last-child) {
+  margin-right: 40px;
+}
+
+li.players__item--active {
+  background: #66b5fc !important;
+  box-shadow: 0px 0px 20px 8px lightyellow;
+  transition: box-shadow 0.3s ease;
+}
+
+
+canvas {
+  padding: 30px 30px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  border-radius: 20px;
+  background-color: #F7F7F7;
+}
+
+.players li {
+  min-height: 70px;
+  max-width: 180px;
+  font-size: 21px;
+  background: #b4b4b4;
+  padding: 16px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+
+
+.modal {
+    pointer-events: none;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    z-index: 1;
+    background-color: #a9a9a9b6;
+    backdrop-filter: blur(15px);
+    overflow-y: hidden;
+  }
+  
+  .modal-open {
+    pointer-events: auto;
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .modal-box {
+    position: relative;
+    width: 380px;
+    min-height: 180px;
+    max-height: calc(100vh - 60px);
+    background-color: #e5e5e5;
+    box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 20px;
+  }
+  
+  .modal-close-button {
+    position: absolute;
+    padding: 0;
+    top: 0;
+    right: 0;
+    width: 42px;
+    height: 42px;
+    background-color: transparent;
+    border: none;
+    background-image: url("img/cross.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+  }
+  
+  .modal-close-button:hover {
+    opacity: 0.7;
+  }
+  
+  .modal-close-button:active {
+    opacity: 0.5;
+  }
+
+  .modal-caption {
+    min-height: 30px;
+    margin: 24px 30px 16px;
+    font-size: 20px;
+    line-height: 32px;
+    text-align: center;
+    opacity: 1;
+    transition: 10s opacity;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form__field {
+    width: 300px;
+    height: 20px;
+    padding: 8px 8px;
+    margin: 16px 0 0 0;
+    border-radius: 5px;
+    border: none;
+  }
+
+  .form__button {
+    padding: 8px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: #F1F1F1;
+    background-color: #036feb;
+    margin-top: 16px;
+  }
+
+  .form__button:hover {
+    opacity: 0.7;
+  }
+
+
+  .custom-input {
+    position: relative;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #d7d7d7;
+    width: 60px;
+    height: 60px;
+    font-size: 22px;
+    border: 3px solid;
+    border-radius: 10px;
+  }
+
+  .custom-input:not(.custom-input:last-child) {
+    margin-right: 10px;
+  }
+
+  .hidden-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .custom-input::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: rgba(74, 158, 253, 0.681);
+    border-radius: 5px; 
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .hidden-input:focus + .custom-input::before,
+  .custom-input:hover::before {
+    opacity: 1; /* При фокусировке или наведении, свечение становится видимым */
+  }
+
+
+  .small-error {
+    color: red;
+    font-size: 12px;
+    margin: 6px 4px;
+  }
+  
+
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-in-out forwards;
+  }
+
+  .fade-out {
+    opacity: 1;
+    animation: fadeOut 0.6s ease-in-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }  

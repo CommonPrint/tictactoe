@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe Game</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <div class="flex">
+    
+    <ul class="players">
+      <li class="players__item"></li>
+      <li class="players__item"></li> 
+    </ul>
+
+    <canvas id="mycanvas"></canvas>
+  </div>
+
+
+    <div class="modal modal-open" id="modal">
+        <div class="modal-box">
+          <section class="modal-content">
+            <!-- <h2 class="modal-caption">Введите никнейм для 1-го игрока</h2> -->
+            <h2 class="modal-caption"></h2>
+
+            <form class="modal__form form" action="#" method="post">
+              <div class="form__item flex">
+                <input class="form__field field" type="text" name="player-name" autocomplete="off" placeholder="Имя игрока">
+              </div>
+              <button class="form__button button" id="player" type="button">Подтвердить</button>
+            </form>
+          </section>
+        </div>
+      </div>
+
+      <script src="./script.js" type="text/javascript" defer></script>
+</body>
+</html>
