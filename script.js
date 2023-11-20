@@ -28,8 +28,10 @@ let game = {
     activePlayer: null, // текущий активный игрок
 
     result: null, // результат игры (победа, ничья)
+    
+    isSecondPlayer: false,
 
-    cellSize: null, // 
+    cellSize: null,
     coordinates: [],
     running: null,
     
@@ -623,55 +625,72 @@ fadeOutElement = (element) => {
 }
 
 // Функция отобразит ошибку, если имя игрока будет меньше 3-х символов
-// и больше 10 символов
-showError = (input, form) => {
+// и больше 10 символов или если имена игроков совпадают
+showError = (input, form, textError) => {
+    
     if (!form.children[0].children[1]) {
         const error = document.createElement('span');
-        error.innerText = "Имя игрока должно быть от 3 до 10 символов";
+        error.innerText = textError;
         error.classList.add("small-error");
         error.classList.add("fade-in");
-
         input.after(error);
     }
+
 }
 
 
 // Функция для обработки событий кликов на кнопку "Подтвердить"
-handlePlayerButtonClick = (input, form, h2, game, isSecondPlayer = false) => {
+handlePlayerButtonClick = (input, form, h2, game) => {
     return function (e) {
         e.preventDefault();
 
+        // Если имя никнейма игрока не меньше 3 и не больше 10 символов 
         if (input.value.length > 2 && input.value.length <= 10) {
+
             if (form.children[0].children[1]) {
                 form.children[0].children[1].remove();
             }
 
             fadeOutElement(h2);
 
-            game.players.push({ name: input.value, symbol: null });
-            input.value = "";
 
-
-            // Если мы вводили имя второго игрока
-            if (isSecondPlayer) {
-                fadeInElement(h2);
-            } else {
-                // Отвяжем событие "click" для кнопки "Подтвердить"
-                form.children[1].removeEventListener("click", handlePlayerButtonClick(input, form, h2, game));
+            // Если мы вводили имя второго игрока, то проверим его соответствие 
+            // с именем первого игрока, если имена не совпадают, то занесем второго игрока
+            // в массив game.players
+            if(game.isSecondPlayer) {
                 
+                fadeInElement(h2);
 
-                // Если мы указали имена для двоих игроков, то выведем
-                // модальное окно с выбором размера сетки 
-                if(game.players.length === 2) {
-                    selectionGrid();
+                if(game.players[0].name !== input.value) {
+            
+                    game.players.push({ name: input.value, symbol: null });
+
+                    // Если мы указали имена для двоих игроков, то выведем
+                    // модальное окно с выбором размера сетки 
+                    if(game.players.length === 2) {
+                        selectionGrid();
+                    }
+
                 }
+
+                // Иначе выведем ошибку под полем ввода
                 else {
-                    getSecondPlayer();
+                    let textError = "Никнейм второго игрока совпадает с никнеймом первого игрока";
+                    showError(input, form, textError);
                 }
             }
+            // Если ввели имя первого игрока
+            else {
+                game.players.push({ name: input.value, symbol: null });
+                input.value = "";
+
+                getSecondPlayer();
+            }
+
         } 
         else {
-            showError(input, form);
+            let textError = "Имя игрока должно быть от 3 до 10 символов";
+            showError(input, form, textError);
         }
     };
 }
@@ -688,15 +707,11 @@ randomPlayer = () => {
 }
 
 getSecondPlayer = () => {
-    const input = form.children[0].children[0];
-    const buttonPlayer = form.children[1];
-
     setTimeout(() => {
         h2.innerText = "Введите никнейм для 2 игрока";
         fadeInElement(h2);
-    }, 100);
-
-    buttonPlayer.addEventListener("click", handlePlayerButtonClick(input, form, h2, game, true));
+        game.isSecondPlayer = true;
+    }, 100);    
 }
 
 getFirstPlayer = () => {
