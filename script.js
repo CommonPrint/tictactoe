@@ -26,8 +26,6 @@ let game = {
     blocks: [], // блоки будут содержать "пустой блок", "x" или "0"
     
     activePlayer: null, // текущий активный игрок
-
-    result: null, // результат игры (победа, ничья)
     
     isSecondPlayer: false,
 
