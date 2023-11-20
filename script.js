@@ -79,10 +79,13 @@ let game = {
 
             // Определим ширину каждого квадрата в канвасе
             this.cellSize = Math.floor(this.ctx.canvas.getBoundingClientRect().width / this.grid);
+
+            
+            // Расстояние между блоками при разных размерах сеток
+            let distanceBlocks = 10 + (5-this.grid) * 3;
             
             // Ширина каждой ячейки в сетке
-            // 17 - это расстояние между блоками
-            let cellWidth = Math.floor(this.cellSize-17);
+            let cellWidth = Math.floor(this.cellSize - distanceBlocks);
             
 
             // Заполним массив координат
@@ -103,6 +106,8 @@ let game = {
                 }
 
                 this.coordinates.push(coordinatesRows);
+
+                console.log('this.coordinates: ', this.coordinates);
             }//for(i)
             
         }
@@ -561,7 +566,7 @@ selectionGrid = () => {
                         
                         // Запустим игру
                         game.start();
-                    }, 3200);
+                    }, 3500);
 
                 }, 2000)
 
